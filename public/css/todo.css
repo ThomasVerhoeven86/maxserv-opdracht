@@ -1,0 +1,86 @@
+#header {
+	height: 150px;
+	width: 1200px;
+	background-image: url('/maxserv_opdracht/public/images/header.jpg');
+}
+#menu {
+	height: 831px;
+	width: 176px;
+	background-color: green;
+	float: left;
+	margin: 5px;
+	border: 2px solid black;
+	padding: 5px;
+}
+#menu .menuButton {
+	cursor: pointer;
+}
+.menuItem {
+	margin: 2px;
+	border: 2px solid black;
+	padding: 5px;
+	background-color: #16b716;
+}
+.menuItem input[type="text"], .menuItem input[type="email"], .menuItem input[type="password"] {
+	width: 150px;
+}
+#container {
+	min-height: 1000px;
+	width: 1200px;
+	background-color: #ffffcc;
+}
+#sort {
+	width: 1000px;
+	float: right;
+}
+table {
+	border-collapse: collapse;
+	margin: 5px;
+}
+th, td {
+	border: 2px solid black;
+	padding: 5px;
+}
+.toDoItem {
+	width: 1000px;
+	float: right;
+}
+.expiredItems .toDoItem {
+	background-color: #f94d4d;
+}
+.notExpiredItems .toDoItem {
+	background-color: #fdfd7f;
+}
+.toDoItem table, .addItem table {
+	height: 120px;
+	width: 950px;
+	border: 2px solid black;
+}
+#sort table {
+	width: 950px;
+	border: 2px solid black;
+}
+.toDoItem table td, #sort table td, .addItem td {
+	border: 2px solid black;
+	padding: 5px;
+	width: 180px;
+}
+.toDoItem table p {
+	margin: 0;
+}
+.bewerken {
+	float: right;
+}
+.addItem {
+	width: 1000px;
+	background-color: #8dfbf0;
+	float: right;
+}
+.addItem input {
+	width: 150px;
+}
+.toDoItem textarea, .addItem textarea {
+	height: 70px;
+	width: 720px;
+	resize: none;
+}
