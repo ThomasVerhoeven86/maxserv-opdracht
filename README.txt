@@ -33,4 +33,5 @@ database/seeds
 public
 resources/views
 routes/web.php
+maxserv_opdracht.sql
 .env
