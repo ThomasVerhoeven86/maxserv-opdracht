@@ -8,6 +8,9 @@ use Auth;
 
 class ToDoController extends Controller
 {
+	
+	// Dit is de standaard controller
+	
 	private $_model;
 	
 	public function __construct() {

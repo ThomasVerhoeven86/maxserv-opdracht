@@ -4,7 +4,6 @@
 	background-image: url('/maxserv_opdracht/public/images/header.jpg');
 }
 #menu {
-	height: 831px;
 	width: 176px;
 	background-color: green;
 	float: left;
@@ -23,6 +22,10 @@
 }
 .menuItem input[type="text"], .menuItem input[type="email"], .menuItem input[type="password"] {
 	width: 150px;
+}
+.menuItem a, .menuItem a:visited, .menuItem a:hover, .menuItem a:active {
+	color: inherit;
+	text-decoration: none;
 }
 #container {
 	min-height: 1000px;

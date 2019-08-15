@@ -7,6 +7,9 @@ use PDO;
 
 class ToDoModel extends Model
 {
+	
+	// Via dit model wordt alle data beheert en verwerkt. Hiervoor maakt het gebruik van de ToDoSanitizer en ToDoItem classes.
+	
 	private $_connection, $_db;
 	private $_toDoItemList = ['expired' => [], 'notExpired' => []];
 	
@@ -53,18 +56,19 @@ class ToDoModel extends Model
 	}
 	
 	public function addToDoItem($request) {
-		$name = ToDoSanitizer::sanitizeString($request->input('name'));
-		$content = ToDoSanitizer::sanitizeString($request->input('content'));
-		$startDate = ToDoSanitizer::sanitizeDate($request->input('startDate'));
-		$endDate = ToDoSanitizer::sanitizeDate($request->input('endDate'));
-		$author = Auth()->user()->name;
-		$finished = $request->input('finished') === 'true' ? 1 : 0;
-		$userId = Auth()->user()->id;
+		$name = $request->input('name');
+		$content = $request->input('content');
+		$startDate = $request->input('startDate');
+		$endDate = $request->input('endDate');
+		$finished = $request->input('finished');
 		
-		ToDoItem::addToDoItem($name, $content, $startDate, $endDate, $finished, $author, $userId, $this->_db);
+		ToDoItem::addToDoItem($name, $content, $startDate, $endDate, $finished, $this->_db);
 	}
 	
-	public function deleteItems($ids) {
-		ToDoItem::deleteItems($ids, $this->_db);
+	public function deleteItems($request) {
+		$ids = $request->input('ids');
+		if (!empty($ids)) {
+			ToDoItem::deleteItems($ids, $this->_db);
+		}
 	}
 }

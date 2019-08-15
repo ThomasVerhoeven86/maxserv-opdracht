@@ -3,7 +3,15 @@
 namespace App\Maxserv_opdracht;
 use PDO;
 
-class DBConnection {
+class DBConnection 
+{
+	
+	/*  
+		Singleton database connection class
+		LET OP: Authenticatie verloopt via de database verbinding van Laravel zelf, de instellingen daarvoor zijn te vinden in .env in de root folder
+		Deze class wordt gebruikt voor alle database bewerkingen van zelf-geschreven code
+	*/
+	
 	
 	static $_instance;
 	private $_db;

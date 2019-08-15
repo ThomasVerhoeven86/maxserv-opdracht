@@ -26,6 +26,13 @@ class CreateToDoItems extends Migration
 			$table->index('user_id');
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
+		
+		DB::unprepared('
+			CREATE TRIGGER `before_update_to_do_items` BEFORE UPDATE ON `to_do_items` FOR EACH ROW
+			BEGIN
+				SET NEW.edit_date = NOW();
+			END
+		');
     }
 
 

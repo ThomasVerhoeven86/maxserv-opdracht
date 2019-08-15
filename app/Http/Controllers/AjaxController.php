@@ -8,6 +8,9 @@ use Auth;
 
 class AjaxController extends Controller
 {
+	
+	// Deze controller beheert input van ajax-aanroepen
+	
 	private $_model;
 	
 	public function __construct() {
@@ -26,9 +29,7 @@ class AjaxController extends Controller
 		$this->_model->updateFinished($request);
 	}
 	
-	public function deleteItems() {
-		if (isset($_POST['ids'])) {
-			$this->_model->deleteItems($_POST['ids']);			
-		}
+	public function deleteItems(Request $request) {
+		$this->_model->deleteItems($request);
 	}
 }

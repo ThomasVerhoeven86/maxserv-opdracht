@@ -2,7 +2,7 @@
 	
 	<div class="menuItem">
 		<span class="welcome">Welkom {{ Auth::user()->name }}
-		<div class="menuItem" aria-labelledby="navbarDropdown">
+		<div class="menuItem">
 			<a href="{{ route('logout') }}" onclick="event.preventDefault();
 						document.getElementById('logout-form').submit();">
 				{{ __('Logout') }}

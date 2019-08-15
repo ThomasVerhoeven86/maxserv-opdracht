@@ -14,7 +14,7 @@ class ToDoItemsTableSeeder extends Seeder
 			'edit_date' => '2013-06-15 20:30:00',
 			'start_date' => '1995-05-13',
 			'end_date' => '2020-01-01',
-			'finished' => '0',
+			'finished' => '1',
 			'author' => 'Bob',
 			'user_id' => '1'
 		]);
@@ -48,6 +48,28 @@ class ToDoItemsTableSeeder extends Seeder
 			'start_date' => '2011-07-12',
 			'end_date' => '2018-09-24',
 			'finished' => '0',
+			'author' => 'Bob',
+			'user_id' => '1'
+		]);
+		
+		DB::table('to_do_items')->insert([
+			'name' => 'Boodschappen',
+			'content' => 'Een piraat heeft ook boodschappen nodig',
+			'edit_date' => '2010-12-10 07:34:51',
+			'start_date' => '2009-03-14',
+			'end_date' => '2009-04-14',
+			'finished' => '1',
+			'author' => 'Bob',
+			'user_id' => '1'
+		]);
+		
+		DB::table('to_do_items')->insert([
+			'name' => 'Winterslaap',
+			'content' => 'Een winterslaap om energie te besparen',
+			'edit_date' => '2019-08-11 12:12:12',
+			'start_date' => '2020-06-09',
+			'end_date' => '2030-08-13',
+			'finished' => '1',
 			'author' => 'Bob',
 			'user_id' => '1'
 		]);

@@ -9,22 +9,11 @@ use Auth;
 
 class ToDoItem extends Model
 {
-	// private $_connection, $_db, $_toDoItemList;
-	// protected $id;
 	
-	// Try to make obsolete
-	// public function __construct($connection = null, $db = null) {
-		// if($connection && $db) {
-			// $this->_connection = $connection;
-			// $this->_db = $db;
-		// } else {
-			// $this->_connection = DBConnection::getInstance('maxserv_opdracht');
-			// $this->_db = $this->_connection->getConnection();
-		// }
-	// }
+	// Alle bewerkingen die direct van toepassing zijn op een todo item worden door deze class afgehandeld. 
 	
 	public function isExpired() {
-		if (new DateTime($this->endDate) < new DateTime()) {
+		if (new DateTime($this->end_date) < new DateTime()) {
 			if (!$this->finished) {
 				return true;
 			}
@@ -39,12 +28,16 @@ class ToDoItem extends Model
 		$userId = Auth()->user()->id;
 		$params = ['name' => $name, 'id' => $id, 'user_id' => $userId];
 		$statement = $db->prepare("UPDATE to_do_items SET name=:name WHERE id=:id AND user_id=:user_id");
-		$test = $statement->execute($params);
+		$statement->execute($params);
+		
 		$params2 = ['id' => $id, 'user_id' => $userId];
-		$statement2 = $db->prepare("SELECT name FROM to_do_items WHERE id=:id AND user_id=:user_id;");
+		$statement2 = $db->prepare("SELECT name, edit_date FROM to_do_items WHERE id=:id AND user_id=:user_id;");
 		$statement2->execute($params2);
 		$result = $statement2->fetch();
-		echo $result['name'];
+		
+		$output = [$result['name'], $result['edit_date']];
+		$output = json_encode($output);
+		echo $output;
 	}
 	
 	static public function updateToDoContent($id, $content, $db){
@@ -54,22 +47,32 @@ class ToDoItem extends Model
 		$params = ['content' => $content, 'id' => $id, 'user_id' => $userId];
 		$statement = $db->prepare("UPDATE to_do_items SET content=:content WHERE id=:id AND user_id=:user_id;");
 		$statement->execute($params);
+		
 		$params2 = ['id' => $id, 'user_id' => $userId];
-		$statement2 = $db->prepare("SELECT content FROM to_do_items WHERE id=:id AND user_id=:user_id;");
+		$statement2 = $db->prepare("SELECT content, edit_date FROM to_do_items WHERE id=:id AND user_id=:user_id;");
 		$statement2->execute($params2);
 		$result = $statement2->fetch();
-		echo $result['content'];
+		
+		$output = [$result['content'], $result['edit_date']];
+		$output = json_encode($output);
+		echo $output;
 	}
 	
 	static public function updateFinished($id, $finished, $db) {
 		$userId = Auth()->user()->id;
 		$params = ['finished' => $finished, 'id' => $id, 'user_id' => $userId];
 		$statement = $db->prepare("UPDATE to_do_items SET finished=:finished WHERE id=:id AND user_id=:user_id;");
-		echo "UPDATE to_do_items SET finished=$finished WHERE id=$id AND user_id=$userId;";
 		$statement->execute($params);
 	}
 	
-	static public function addToDoItem($name, $content, $startDate, $endDate, $finished, $author, $userId, $db) {
+	static public function addToDoItem($name, $content, $startDate, $endDate, $finished, $db) {
+		$name = ToDoSanitizer::sanitizeString($name);
+		$content = ToDoSanitizer::sanitizeString($content);
+		$startDate = ToDoSanitizer::sanitizeDate($startDate);
+		$endDate = ToDoSanitizer::sanitizeDate($endDate);
+		$finished = $finished === 'true' ? 1 : 0;
+		$author = Auth()->user()->name;
+		$userId = Auth()->user()->id;
 		$params = ['name' => $name, 'content' => $content, 'start_date' => $startDate, 'end_date' => $endDate, 'finished' => $finished, 'author' => $author, 'user_id' => $userId];
 		$statement = $db->prepare("INSERT INTO to_do_items (name, content, start_date, end_date, finished, author, user_id) VALUES (:name, :content, :start_date, :end_date, :finished, :author, :user_id);");
 		$statement->execute($params);
@@ -78,12 +81,10 @@ class ToDoItem extends Model
 	static public function deleteItems($ids, $db) {
 		foreach ($ids as $id) {
 			$id = ToDoSanitizer::sanitizeInteger($id);
-			echo $id;
 			$userId = auth()->user()->id;
 			$params = ['id' => $id, 'user_id' => $userId];
 			$statement = $db->prepare("DELETE FROM to_do_items WHERE id=:id AND user_id=:user_id;");
 			$statement->execute($params);
-			// echo "DELETE FROM to_do_items WHERE id=$id AND user_id=$userId;";
 		}
 	}
 }
