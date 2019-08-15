@@ -23,3 +23,14 @@ Inloggen:
 	Lisa
 		Username = email@email.nl
 		Password = wachtwoord123
+		
+De mappen/bestanden die zijn aangepast:
+
+app/Http/Controllers/
+app/Maxserv_opdracht
+database/migrations
+database/seeds
+public
+resources/views
+routes/web.php
+.env
